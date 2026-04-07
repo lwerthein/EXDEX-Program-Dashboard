@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXDEx &#x2013; Mayo Clinic Executive Health &#x2013; weekly status</title>
+<style>
+@font-face { font-family:"GT America"; font-weight:400;
+  src:url("data:font/truetype;base64,AAEAAAASAQAABAAgRFNJRwAAAAEAAjpwAAAACEdERUYovikpAAABLAAAAKRHUE9TsSGO8AAAAdAAAGTER1NVQtj1xAEAAGaUAAAfgk9TLzL+GVcPAACGGAAAAGBjbWFw+iitRQAAhngAABjqY3Z0ICQGEKAAAirsAAAAoGZwZ21iLwN/AAIrjAAADgxnYXNwAAAAEAACKuQAAAAIZ2x5ZuWr+SgAAJ9kAAFRrGhlYWQhRdnAAAHxEAAAADZoaGVhB6kFcAAB8UgAAAAkaG10eABjqjoAAfFsAAANjGxvY2HIhR0GAAH++AAABshtYXhwBpYQeQACBcAAAAAgbmFtZadCP8kAAgXgAAAEHXBvc3QEDEJYAAIKAAAAIORwcmVwfr2UCwACOZgAAADW") format("truetype"); }
+@font-face { font-family:"GT America"; font-weight:700;
+  src:url("data:font/truetype;base64,AAEAAAASAQAABAAgRFNJRwAAAAEAAkYoAAAACEdERUYovilXAAABLAAAAKRHUE9TTorBgQAAAdAAAG3WR1NVQtj1xAEAAG+oAAAfgk9TLzL/RVcGAACPLAAAAGBjbWFw+iitRQAAj4wAABjqY3Z0ICWfEjgAAjakAAAAoGZwZ21iLwN/AAI3RAAADgxnYXNwAAAAEAACNpwAAAAIZ2x5ZvcgtZwAAKh4AAFUeGhlYWQhxNnmAAH88AAAADZoaGVhCCcFowAB/SgAAAAkaG10eEv6fHsAAf1MAAANjGxvY2GAt9YAAAIK2AAABshtYXhwBpYQdAACEaAAAAAgbmFtZfjww6QAAhHAAAAD9nBvc3QEDEJYAAIVuAAAIORwcmVwfr2UCwACRVAAAADW") format("truetype"); }
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ font-size:16px; }
+body{
+  font-family:"GT America","Helvetica Neue",Arial,sans-serif;
+  color:#27272A; background:#FFFFFF; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Header */
+.top-bar{
+  position:sticky; top:0; z-index:100; background:#FFF;
+  border-bottom:1px solid #ECECEE; padding:14px 48px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.top-bar-left{ display:flex; align-items:center; gap:16px; }
+.top-bar-divider{ width:1px; height:22px; background:#ECECEE; }
+.top-bar-title{ font-size:14px; color:#6A6A73; }
+.sel{
+  font-family:"GT America",sans-serif; font-size:13px; font-weight:700; color:#27272A;
+  background:#F7F7F8; border:1px solid #ECECEE; border-radius:6px;
+  padding:6px 30px 6px 10px; cursor:pointer;
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A1A1AA' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center; min-width:200px;
+}
+.sel:hover{ border-color:#A1A1AA; }
+.sel:focus{ outline:none; border-color:#27272A; }
+
+.page{ max-width:1080px; margin:0 auto; padding:36px 32px 100px; }
+
+/* Hero */
+.hero{ text-align:center; padding:36px 0 28px; }
+.hero-pill{
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+  padding:8px 20px; border-radius:100px;
+}
+.hero-pill.all-clear{ background:#ECFDF5; color:#059669; }
+.hero-pill.has-risk{ background:#FFFBEB; color:#D97706; }
+.hero-pill.has-block{ background:#FEF2F2; color:#DC2626; }
+.hero-dot{ width:10px; height:10px; border-radius:50%; background:currentColor; }
+.hero-sub{ font-size:13px; color:#A1A1AA; margin-top:8px; }
+.hero-launch{
+  display:inline-block; margin-top:10px;
+  font-size:12px; font-weight:700; color:#6A6A73;
+  background:#F3F4F6; padding:4px 14px; border-radius:5px;
+}
+
+/* Urgent */
+.urgent{
+  background:#FEF2F2; border:1px solid #FECACA; border-radius:10px;
+  padding:16px 20px; margin-bottom:12px;
+}
+.urgent-header{
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; color:#991B1B;
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;
+}
+.urgent-dot{ width:8px; height:8px; border-radius:50%; background:#DC2626; }
+.urgent-list{ list-style:none; }
+.urgent-list li{
+  font-size:13px; color:#7F1D1D; line-height:1.5;
+  padding:3px 0 3px 18px; position:relative;
+}
+.urgent-list li::before{
+  content:""; position:absolute; left:0; top:10px;
+  width:5px; height:5px; border-radius:50%; background:#FCA5A5;
+}
+
+/* Attention */
+.attention{
+  background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px;
+  padding:16px 20px; margin-bottom:28px;
+}
+.attention-header{
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; color:#92400E;
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;
+}
+.attention-dot{ width:7px; height:7px; border-radius:50%; background:#D97706; }
+.attention-list{ list-style:none; }
+.attention-list li{
+  font-size:13px; color:#78350F; line-height:1.5;
+  padding:3px 0 3px 18px; position:relative;
+}
+.attention-list li::before{
+  content:""; position:absolute; left:0; top:10px;
+  width:5px; height:5px; border-radius:50%; background:#FBBF24;
+}
+
+/* Gantt chart */
+.gantt-section{ margin-bottom:36px; }
+.gantt-title{
+  font-size:18px; font-weight:700; color:#27272A; margin-bottom:4px;
+}
+.gantt-subtitle{
+  font-size:12px; color:#A1A1AA; margin-bottom:18px;
+}
+.gantt-wrapper{
+  background:#FAFAFA; border:1px solid #ECECEE; border-radius:10px;
+  padding:24px 24px 20px; overflow-x:auto;
+}
+.gantt{ position:relative; min-width:700px; }
+
+.gantt-months{
+  display:flex; padding-left:160px; margin-bottom:8px;
+}
+.gantt-month{
+  flex:1; font-size:11px; font-weight:700; color:#A1A1AA;
+  text-transform:uppercase; letter-spacing:.04em; text-align:center;
+}
+
+.gantt-body{ position:relative; padding-left:160px; }
+
+.gantt-today{
+  position:absolute; top:-6px; bottom:0; width:0;
+  border-left:2px dashed #A1A1AA; z-index:2;
+}
+.gantt-today-label{
+  position:absolute; top:-20px; left:-18px;
+  font-size:9px; font-weight:700; color:#6A6A73;
+  text-transform:uppercase; letter-spacing:.05em; white-space:nowrap;
+}
+
+.gantt-launch{
+  position:absolute; top:-6px; bottom:0; width:0;
+  border-left:2px solid #27272A; z-index:2;
+}
+.gantt-launch-label{
+  position:absolute; top:-20px; right:-4px;
+  font-size:9px; font-weight:700; color:#27272A;
+  white-space:nowrap; text-align:right;
+}
+
+.gantt-lane{
+  display:flex; align-items:center; height:52px;
+  border-bottom:1px dashed #ECECEE; position:relative;
+}
+.gantt-lane:last-child{ border-bottom:none; }
+.gantt-lane-label{
+  position:absolute; left:-160px; width:148px;
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; color:#27272A;
+}
+.gantt-status-dot{
+  width:10px; height:10px; border-radius:50%; flex-shrink:0;
+}
+.gantt-bar-track{
+  flex:1; position:relative; height:10px;
+}
+.gantt-bar{
+  position:absolute; height:10px; border-radius:5px; opacity:0.3;
+}
+.gantt-bar-active{
+  position:absolute; height:10px; border-radius:5px;
+}
+.gantt-milestone{
+  position:absolute; top:50%; transform:translate(-50%,-50%);
+  width:12px; height:12px; background:#27272A; border-radius:50%;
+  z-index:3;
+}
+.gantt-ms-label{
+  position:absolute; top:28px; left:50%; transform:translateX(-50%);
+  font-size:9px; color:#6A6A73; white-space:nowrap; text-align:center;
+  max-width:100px; line-height:1.2;
+}
+
+/* Section label */
+.sec-label{
+  font-size:11px; font-weight:700; color:#A1A1AA;
+  text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;
+}
+
+/* Workstream colors */
+:root{
+  --ws-ops:#10B981; --ws-ops-bg:#ECFDF5; --ws-ops-border:#A7F3D0;
+  --ws-app:#3B82F6; --ws-app-bg:#EFF6FF; --ws-app-border:#BFDBFE;
+  --ws-products:#8B5CF6; --ws-products-bg:#F5F3FF; --ws-products-border:#DDD6FE;
+  --ws-experiences:#F59E0B; --ws-experiences-bg:#FFFBEB; --ws-experiences-border:#FDE68A;
+}
+
+/* What's coming up */
+.next-up{ margin-bottom:36px; }
+.next-list{ display:flex; flex-direction:column; }
+.next-item{
+  display:grid; grid-template-columns:68px 1fr auto;
+  gap:14px; align-items:baseline;
+  padding:10px 0; border-bottom:1px solid #F4F4F5;
+}
+.next-item:last-child{ border-bottom:none; }
+.next-date{ font-size:13px; font-weight:700; color:#27272A; white-space:nowrap; }
+.next-text{ font-size:13px; color:#6A6A73; }
+.next-tag{
+  font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px;
+  white-space:nowrap; text-transform:uppercase; letter-spacing:.04em;
+}
+
+/* Workstream cards */
+.ws-section{ margin-bottom:36px; }
+.ws{
+  border-radius:10px; margin-bottom:14px; overflow:hidden;
+  border:1px solid #ECECEE;
+}
+.ws-color-bar{ height:4px; }
+.ws-bar{
+  display:grid; grid-template-columns:1fr auto auto;
+  align-items:center; gap:14px; padding:16px 20px;
+  cursor:pointer; user-select:none; transition:background .1s;
+}
+.ws-bar:hover{ background:#FAFAFA; }
+.ws-bar-left{ display:flex; flex-direction:column; gap:1px; min-width:0; }
+.ws-name{ font-size:14px; font-weight:700; color:#27272A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ws-oneliner{ font-size:12px; color:#A1A1AA; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.badge{ font-size:11px; font-weight:700; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; }
+.badge-on-track{ background:#ECFDF5; color:#059669; }
+.badge-at-risk{ background:#FFFBEB; color:#D97706; }
+.badge-blocked{ background:#FEF2F2; color:#DC2626; }
+.chev{ width:18px; height:18px; color:#D4D4D8; transition:transform .2s,color .2s; flex-shrink:0; }
+.ws.open .chev{ transform:rotate(180deg); color:#A1A1AA; }
+
+/* Expand panel */
+.ws-expand{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+.ws.open .ws-expand{ max-height:8000px; }
+.ws-expand-inner{ padding:0 20px 24px; border-top:1px solid #ECECEE; }
+.ws-summary{ font-size:14px; color:#6A6A73; line-height:1.6; padding:18px 0 16px; max-width:700px; }
+.prog{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.prog-track{ flex:1; height:5px; background:#F3F4F6; border-radius:3px; overflow:hidden; }
+.prog-fill{ height:100%; border-radius:3px; transition:width .4s; }
+.prog-label{ font-size:11px; font-weight:700; color:#A1A1AA; white-space:nowrap; }
+.ms-row{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
+.ms{ font-size:11px; font-weight:700; padding:3px 10px; border-radius:5px; white-space:nowrap; }
+.ms-done{ background:#ECFDF5; color:#059669; }
+.ms-soon{ background:#FEF3C7; color:#92400E; }
+.ms-future{ background:#F3F4F6; color:#6A6A73; }
+.ms-cancel{ background:#F3F4F6; color:#A1A1AA; text-decoration:line-through; }
+.detail-two-col{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.col-title{ font-size:11px; font-weight:700; color:#A1A1AA; text-transform:uppercase; letter-spacing:.06em; padding-bottom:8px; border-bottom:1px solid #F4F4F5; margin-bottom:10px; }
+.grp{ font-size:12px; font-weight:700; color:#27272A; margin-top:10px; margin-bottom:4px; }
+.grp:first-of-type{ margin-top:0; }
+.dl{ list-style:none; padding:0; }
+.dl li{ font-size:12px; color:#6A6A73; padding:2px 0 2px 14px; position:relative; line-height:1.45; }
+.dl li::before{ content:""; position:absolute; left:0; top:8px; width:4px; height:4px; border-radius:50%; background:#D4D4D8; }
+.dl li.ck::before{ background:#059669; }
+.dl li.up::before{ background:#D97706; }
+.dl li.rm{ text-decoration:line-through; color:#C4C4C8; }
+.dl li.rm::before{ background:#E4E4E7; }
+.dl li.cancel{ text-decoration:line-through; color:#A1A1AA; }
+.dl li.cancel::before{ background:#E4E4E7; }
+.tl{ position:relative; padding-left:18px; margin-top:4px; }
+.tl::before{ content:""; position:absolute; left:3px; top:6px; bottom:6px; width:1.5px; background:#ECECEE; }
+.tl-item{ position:relative; padding:3px 0 8px; font-size:12px; color:#6A6A73; line-height:1.45; }
+.tl-item::before{ content:""; position:absolute; left:-18px; top:8px; width:7px; height:7px; background:#FFF; border:2px solid #D97706; border-radius:50%; z-index:1; }
+.tl-item .td{ font-weight:700; color:#27272A; }
+.deliverables-panel{ background:#FAFAFA; border:1px solid #ECECEE; border-radius:8px; padding:18px 20px; margin-top:20px; }
+.del-header{ font-size:13px; font-weight:700; color:#27272A; margin-bottom:14px; }
+.del-two-col{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.del-badge{ display:inline-block; font-size:10px; font-weight:700; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:10px; }
+.del-badge.completed{ background:#ECFDF5; color:#059669; }
+.del-badge.upcoming{ background:#F3F4F6; color:#6A6A73; }
+.del-badge.removed{ background:#FEF2F2; color:#DC2626; }
+.completed-section{ border-top:1px solid #F4F4F5; margin-top:20px; padding-top:16px; }
+.completed-toggle{ display:flex; align-items:center; gap:6px; cursor:pointer; user-select:none; font-size:11px; font-weight:700; color:#A1A1AA; text-transform:uppercase; letter-spacing:.06em; }
+.completed-toggle svg{ width:14px; height:14px; color:#D4D4D8; transition:transform .2s; }
+.completed-toggle.open svg{ transform:rotate(180deg); }
+.completed-body{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+.completed-body.open{ max-height:4000px; padding-top:10px; }
+.no-data{ text-align:center; padding:80px 24px; color:#A1A1AA; font-size:14px; }
+.foot{ text-align:center; color:#D4D4D8; font-size:11px; padding:20px; letter-spacing:.02em; }
+</style>
+</head>
+<body>
+
+<script>
+const WEEKS = {
+
+  "Week 1 \u2013 Mar 2, 2026": { urgentItems:[], attentionItems:[], workstreams:[], gantt:null },
+  "Week 2 \u2013 Mar 9, 2026": { urgentItems:[], attentionItems:[], workstreams:[], gantt:null },
+  "Week 3 \u2013 Mar 16, 2026": { urgentItems:[], attentionItems:[], workstreams:[], gantt:null },
+
+  "Week 4 \u2013 Mar 27, 2026": {
+    urgentItems: [
+      "Cloud Chandelier: canceled. March invoice and a final cancelation invoice have been issued to close out the scope.",
+      "Sightline: InBody fields in Epic needed in Prod by April 1. Sightline features dependency."
+    ],
+    attentionItems: [
+      "Exam Room physician testing onsite delayed to early to mid May due to production environment and production data via LPR needs",
+      "New InBody fields in Epic (will be provided by Mayo by April 1st)",
+      "Custom forms go-live estimated end-Mar; content changes in progress, initial flow to be discussed with Sales, OMs, PMs next week"
+    ],
+
+    gantt: {
+      title: "Road to Gonda-19 launch: 15 weeks",
+      startMonth: "2025-12",
+      months: ["01/26","02/26","03/26","04/26","05/26","06/26","07/26"],
+      todayPosition: 38,
+      launchPosition: 96,
+      launchLabel: "Gonda 19 \u2013 July 6",
+      lanes: [
+        {
+          label: "Website",
+          color: "#3B82F6",
+          status: "on-track",
+          barStart: 0, barEnd: 100,
+          activeStart: 18, activeEnd: 52,
+          milestones: [
+            { pos: 32, label: "Gonda-19\\nContent Refresh" },
+            { pos: 52, label: "" }
+          ]
+        },
+        {
+          label: "App",
+          color: "#059669",
+          status: "on-track",
+          barStart: 0, barEnd: 100,
+          activeStart: 0, activeEnd: 100,
+          milestones: [
+            { pos: 52, label: "Beta Release\\nCore Team & Trusted Patients" },
+            { pos: 88, label: "Public Release\\nPhased Patient Rollout" },
+            { pos: 96, label: "" }
+          ]
+        },
+        {
+          label: "Sightline",
+          color: "#F59E0B",
+          status: "on-track",
+          barStart: 0, barEnd: 78,
+          activeStart: 0, activeEnd: 78,
+          milestones: [
+            { pos: 48, label: "Physician Testing\\n& Feedback" },
+            { pos: 56, label: "" },
+            { pos: 65, label: "Physician & Staff Training" },
+            { pos: 72, label: "" }
+          ]
+        },
+        {
+          label: "Mindfulness Room",
+          color: "#EF4444",
+          status: "on-track",
+          barStart: 0, barEnd: 82,
+          activeStart: 0, activeEnd: 82,
+          milestones: [
+            { pos: 55, label: "On-Site Install & Testing" },
+            { pos: 72, label: "" }
+          ]
+        },
+        {
+          label: "Operational Support",
+          color: "#EC4899",
+          status: "on-track",
+          barStart: 0, barEnd: 100,
+          activeStart: 0, activeEnd: 100,
+          milestones: [
+            { pos: 58, label: "ExDEx\\nRoadshow" },
+            { pos: 65, label: "" },
+            { pos: 75, label: "Hospitality &\\nApp Training" },
+            { pos: 80, label: "" },
+            { pos: 88, label: "Pre-Launch\\nPrep" },
+            { pos: 92, label: "" }
+          ]
+        }
+      ]
+    },
+
+    workstreams: [
+      {
+        name: "Ops & training",
+        color: "ops",
+        status: "on-track",
+        oneliner: "Training workshops scheduling underway. Hospitality audit and guidelines in progress.",
+        summary: "Operational support activities are progressing with training workshop scheduling, hospitality audit, and guidelines development. Digital rollout and adoption metrics framework is being defined.",
+        milestones: [
+          { label: "Pre-visit questionnaire", date: "Revised", status: "done" },
+          { label: "Health insights workflow", date: "Delivered", status: "done" },
+          { label: "Launch workshops", date: "Upcoming", status: "future" }
+        ],
+        progress: { completed: 3, total: 9 },
+        inProgress: {
+          "Ops & Training": [
+            "Scheduling training workshops",
+            "Hospitality audit",
+            "Hospitality guidelines",
+            "Training toolkit",
+            "Launch workshops",
+            "Digital rollout & adoption metrics framework"
+          ]
+        },
+        upcoming: [
+          { date: "Apr", text: "Health Insights Report ops change management" },
+          { date: "Apr", text: "Digital rollout & adoption metrics framework" },
+          { date: "May", text: "Patient-facing app instructional materials" },
+          { date: "Jun", text: "Launch workshops" },
+          { date: "Jun", text: "FAQ guide app & Sightline" }
+        ],
+        completed: {
+          "Ops & Training": [
+            "Onsite and remote dates determined",
+            "Pre-visit questionnaire revised",
+            "Health Insights report workflow"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Ops & Training": [
+              "Pre-visit questionnaire revised",
+              "Health Insights report workflow"
+            ]
+          },
+          upcoming: {
+            "Ops & Training": [
+              "Health Insights Report ops change management",
+              "Digital rollout & adoption metrics framework",
+              "Patient-facing app instructional materials",
+              "Launch workshops",
+              "FAQ guide app & Sightline"
+            ]
+          }
+        }
+      },
+      {
+        name: "App / website",
+        color: "app",
+        status: "on-track",
+        oneliner: "Integration POCs by Mar 31. App store submission planning in progress. Custom forms go-live end-Mar.",
+        summary: "Website custom forms go-live is estimated for end-March with content changes in progress. App development continues with asynchronous testing, QA for iOS and Android, app store submission planning, and KPI/metrics definition. Building integration POCs targeted for March 31.",
+        milestones: [
+          { label: "Integration POCs", date: "Mar 31", status: "soon" },
+          { label: "Alpha release", date: "Apr 2026", status: "future" },
+          { label: "Beta release", date: "Jun 2026", status: "future" },
+          { label: "Public launch", date: "Jul 2026", status: "future" }
+        ],
+        progress: { completed: 5, total: 18 },
+        inProgress: {
+          "Website": [
+            "Custom forms go-live estimated end-Mar (content changes in progress)",
+            "M365 Concierge RST page scoping and timeline"
+          ],
+          "App": [
+            "Testing patients asynchronous testing",
+            "QA for iOS and Android (ongoing)",
+            "App store submission planning",
+            "KPIs and metrics definition & implementation plan",
+            "Rollout planning all sites: stage criteria shared defining"
+          ]
+        },
+        upcoming: [
+          { date: "Mar 31", text: "Building integration POCs" },
+          { date: "Apr", text: "App alpha release and QA test report" },
+          { date: "May", text: "Beta release deliverables in progress" },
+          { date: "Jun", text: "Beta release, external tester deployment" },
+          { date: "Jul", text: "Public app release and launch report" }
+        ],
+        completed: {
+          "Website": [
+            "Alignment on key priorities for Feb to July",
+            "Website API connection to MS Dynamics, Analytics"
+          ],
+          "App": [
+            "Testing patients criteria and scenarios shared",
+            "Mitigation of app risks",
+            "Release plan shared"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Website": [
+              "Content map & information architecture: 1 Figma guide",
+              "UX design: 5 wireframes in Figma",
+              "UI design: 5 designed core pages in Figma",
+              "Design system: 1 Figma guide",
+              "Website copy: created for each page",
+              "User testing & feedback sessions",
+              "Marketing website AEM delivery"
+            ],
+            "App": [
+              "Information architecture guide: 1 Figma outline",
+              "UX design: wireframes created in Figma",
+              "UI design: screens designed in Figma",
+              "Clickable prototype: 1 prototype built in Figma",
+              "Feature roadmap progress",
+              "QA: complete non-integration testing",
+              "Feature roadmap progress on integration and non-integration features"
+            ]
+          },
+          upcoming: {
+            "Website": [
+              "Marketing website with custom forms delivery",
+              "M365 page"
+            ],
+            "App": [
+              "April: complete alpha release",
+              "April: deliver QA test report, issue tracker, feedback summary",
+              "May: in-progress deliverables for Beta release",
+              "June: complete Beta release",
+              "July: complete published public app release",
+              "July: launch report and retrospective"
+            ]
+          }
+        }
+      },
+      {
+        name: "On-floor products: Exam Room, Vitals, Epic Check-In",
+        color: "products",
+        status: "on-track",
+        oneliner: "Exam Room auth flows in progress. Physician testing delayed to early/mid May. Vitals animated videos underway.",
+        summary: "Exam Room authentication flows (badge tap development) are in progress. Physician testing onsite is scheduling, delayed to early to mid May due to production environment needs. Vitals animated videos are in production. Epic Check-In look-and-feel changes being implemented.",
+        milestones: [
+          { label: "Product adoption strategy", date: "Delivered", status: "done" },
+          { label: "Physician testing", date: "Early May", status: "soon" },
+          { label: "Vitals style guide", date: "Upcoming", status: "future" }
+        ],
+        progress: { completed: 2, total: 8 },
+        inProgress: {
+          "Exam Room": [
+            "Authentication flows (badge tap development)",
+            "Physician testing onsite \u2013 scheduling in progress, delayed to early to mid May",
+            "Analytics investigation",
+            "New InBody fields in Epic (will be provided by Mayo by April 1st)"
+          ],
+          "Vitals Content": [
+            "Vitals animated videos"
+          ],
+          "Epic Check-In": [
+            "Implement look-and-feel changes"
+          ]
+        },
+        upcoming: [
+          { date: "Apr 1", text: "InBody fields in Epic needed in Prod (Mayo dependency)" },
+          { date: "May", text: "Physician testing onsite (delayed from April)" },
+          { date: "May", text: "[Vitals Content] Deliverable: design language & animation style guide" }
+        ],
+        completed: {
+          "On-Floor Products": [
+            "Product adoption strategy",
+            "Stylus and stylus tether confirmed"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Vitals Educational Content": [
+              "Storyboards \u2013 round 2"
+            ],
+            "Exam Room Experience": [
+              "UX design: wireframes & IA created in Figma",
+              "UI design: screens designed in Figma",
+              "Functional prototype: 1 prototype & presentation"
+            ],
+            "Epic Check-In": [
+              "Product maps & IA created in Figma",
+              "Design customization guidance in Figma"
+            ]
+          },
+          upcoming: {
+            "Vitals Educational Content": [
+              "Design language & animation style guide",
+              "Final asset production"
+            ],
+            "Exam Room Experience": [
+              "Design system: 1 Figma guide",
+              "Frontend and backend interfaces for patient and provider"
+            ]
+          },
+          removed: {
+            "Vitals Room Experience": [
+              "Design system: 1 Figma guide \u2013 removed due to pivot",
+              "Functional prototype \u2013 removed due to pivot",
+              "Content serving platform \u2013 removed due to pivot",
+              "Vitals room ambient music \u2013 removed due to pivot",
+              "Technical infrastructure diagrams \u2013 removed due to pivot",
+              "UX wireframes & UI designs \u2013 removed due to pivot",
+              "Scripts \u2013 round 2"
+            ]
+          }
+        }
+      },
+      {
+        name: "On-floor experiences: Mindfulness Room",
+        color: "experiences",
+        status: "on-track",
+        oneliner: "QSYS programming, support planning, and install planning in progress. Cloud Chandelier canceled.",
+        summary: "Mindfulness Room is in active development with QSYS programming, support planning, and install planning. Cloud Chandelier SOW has been closed out. Crestron/QSYS programming guide v2 completed.",
+        milestones: [
+          { label: "QSYS guide v2", date: "Delivered", status: "done" },
+          { label: "Cloud Chandelier SOW", date: "Closed out", status: "done" },
+          { label: "Onsite install", date: "May 2026", status: "soon" },
+          { label: "Burn-in", date: "Jun 2026", status: "future" },
+          { label: "Cloud Chandelier", date: "Canceled", status: "canceled" }
+        ],
+        progress: { completed: 2, total: 5 },
+        inProgress: {
+          "Mindfulness Room": [
+            "QSYS programming",
+            "Support planning",
+            "Install planning"
+          ]
+        },
+        upcoming: [
+          { date: "May", text: "Onsite installation" },
+          { date: "Jun", text: "Burn-in period" }
+        ],
+        completed: {
+          "Cloud Chandelier": [
+            "SOW close-out"
+          ],
+          "Mindfulness Room": [
+            "Crestron/QSYS programming guide v2"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Mindfulness Room": [
+              "Final media files",
+              "Test build documentation",
+              "Crestron/QSYS programming guide v2"
+            ],
+            "Cloud Chandelier \u2013 canceled": [
+              "All deliverables canceled with SOW close-out"
+            ]
+          },
+          upcoming: {
+            "Mindfulness Room": [
+              "Operations and maintenance guides",
+              "May 2026: onsite install",
+              "June 2026: post-launch support"
+            ]
+          }
+        }
+      }
+    ]
+  }
+
+};
+</script>
+
+<script>
+function esc(s){ const d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+function bc(s){ return {"on-track":"badge-on-track","at-risk":"badge-at-risk","blocked":"badge-blocked"}[s]||""; }
+function bl(s){ return {"on-track":"On track","at-risk":"At risk","blocked":"Blocked"}[s]||s; }
+
+const WS_COLORS={
+  ops:{ fill:"var(--ws-ops)", tag:"#065F46", tagBg:"#D1FAE5" },
+  app:{ fill:"var(--ws-app)", tag:"#1D4ED8", tagBg:"#DBEAFE" },
+  products:{ fill:"var(--ws-products)", tag:"#6D28D9", tagBg:"#EDE9FE" },
+  experiences:{ fill:"var(--ws-experiences)", tag:"#B45309", tagBg:"#FEF3C7" }
+};
+
+function grouped(obj,cls){
+  if(!obj) return "";
+  let h="";
+  for(const[g,items]of Object.entries(obj)){
+    h+='<div class="grp">'+esc(g)+'</div><ul class="dl">';
+    for(const i of items){
+      const c=i.toLowerCase().includes("canceled")||i.toLowerCase().includes("removed")?
+        "cancel":(cls||"");
+      h+='<li class="'+c+'">'+esc(i)+'</li>';
+    }
+    h+='</ul>';
+  }
+  return h;
+}
+
+function renderGantt(g){
+  if(!g) return "";
+  let h='<div class="gantt-section">';
+  h+='<div class="gantt-title">'+esc(g.title)+'</div>';
+  h+='<div class="gantt-subtitle">Timeline view \u2013 milestones and key dates across all workstreams</div>';
+  h+='<div class="gantt-wrapper"><div class="gantt">';
+
+  h+='<div class="gantt-months">';
+  for(const m of g.months) h+='<div class="gantt-month">'+m+'</div>';
+  h+='</div>';
+
+  h+='<div class="gantt-body">';
+  h+='<div class="gantt-today" style="left:'+g.todayPosition+'%"><span class="gantt-today-label">Today</span></div>';
+  if(g.launchPosition) {
+    h+='<div class="gantt-launch" style="left:'+g.launchPosition+'%"><span class="gantt-launch-label">'+esc(g.launchLabel||"")+'</span></div>';
+  }
+
+  for(const lane of g.lanes) {
+    const statusColor = lane.status === "on-track" ? "#059669" : lane.status === "at-risk" ? "#D97706" : "#DC2626";
+    h+='<div class="gantt-lane">';
+    h+='<div class="gantt-lane-label"><span class="gantt-status-dot" style="background:'+statusColor+'"></span>'+esc(lane.label)+'</div>';
+    h+='<div class="gantt-bar-track">';
+    h+='<div class="gantt-bar" style="left:'+lane.barStart+'%;right:'+(100-lane.barEnd)+'%;background:'+lane.color+'"></div>';
+    h+='<div class="gantt-bar-active" style="left:'+lane.activeStart+'%;right:'+(100-lane.activeEnd)+'%;background:'+lane.color+'"></div>';
+    if(lane.milestones) {
+      for(const ms of lane.milestones) {
+        h+='<div class="gantt-milestone" style="left:'+ms.pos+'%"></div>';
+        if(ms.label) {
+          const lbl = ms.label.replace(/\\n/g,"<br>");
+          h+='<div class="gantt-ms-label" style="left:'+ms.pos+'%">'+lbl+'</div>';
+        }
+      }
+    }
+    h+='</div>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  h+='</div></div>';
+  h+='</div>';
+  return h;
+}
+
+function render(wk){
+  const d=WEEKS[wk], main=document.getElementById("main"), hero=document.getElementById("hero");
+
+  if(!d||!d.workstreams||!d.workstreams.length){
+    hero.innerHTML='<div class="hero-pill" style="background:#F3F4F6;color:#A1A1AA">No data for this week</div>';
+    main.innerHTML='<div class="no-data">Add workstream data to the JSON block to populate this week.</div>';
+    return;
+  }
+
+  const ws=d.workstreams;
+  const blk=ws.filter(w=>w.status==="blocked").length;
+  const atR=ws.filter(w=>w.status==="at-risk").length;
+
+  let hc,ht;
+  if(blk>0){ hc="has-block"; ht=blk+" workstream"+(blk>1?"s":"")+" blocked"; }
+  else if(atR>0){ hc="has-risk"; ht=atR+" workstream"+(atR>1?"s":"")+" at risk"; }
+  else{ hc="all-clear"; ht="All "+ws.length+" workstreams on track"; }
+  let heroHtml='<div class="hero-pill '+hc+'"><span class="hero-dot"></span>'+ht+'</div>';
+  heroHtml+='<div class="hero-sub">'+ws.length+' active workstreams this period</div>';
+  if(d.gantt && d.gantt.launchLabel) {
+    heroHtml+='<div class="hero-launch">'+esc(d.gantt.launchLabel)+'</div>';
+  }
+  hero.innerHTML=heroHtml;
+
+  let html="";
+
+  if(d.urgentItems && d.urgentItems.length){
+    html+='<div class="urgent"><div class="urgent-header"><span class="urgent-dot"></span>Urgent</div><ul class="urgent-list">';
+    for(const a of d.urgentItems) html+='<li>'+esc(a)+'</li>';
+    html+='</ul></div>';
+  }
+
+  if(d.attentionItems && d.attentionItems.length){
+    html+='<div class="attention"><div class="attention-header"><span class="attention-dot"></span>Needs attention</div><ul class="attention-list">';
+    for(const a of d.attentionItems) html+='<li>'+esc(a)+'</li>';
+    html+='</ul></div>';
+  }
+
+  html += renderGantt(d.gantt);
+
+  let allUp=[];
+  for(const w of ws){
+    if(!w.upcoming) continue;
+    const c=WS_COLORS[w.color]||WS_COLORS.app;
+    const shortName=w.name.split(":")[0].split(",")[0].trim();
+    for(const u of w.upcoming){
+      allUp.push({date:u.date,text:u.text,ws:shortName,tagColor:c.tag,tagBg:c.tagBg});
+    }
+  }
+  if(allUp.length){
+    html+='<div class="next-up"><div class="sec-label">What\'s coming up</div><div class="next-list">';
+    for(const u of allUp){
+      html+='<div class="next-item"><span class="next-date">'+esc(u.date)+'</span><span class="next-text">'+esc(u.text)+'</span><span class="next-tag" style="color:'+u.tagColor+';background:'+u.tagBg+'">'+esc(u.ws)+'</span></div>';
+    }
+    html+='</div></div>';
+  }
+
+  html+='<div class="ws-section"><div class="sec-label">Workstream detail</div>';
+  let wsIdx=0;
+  for(const w of ws){
+    const c=WS_COLORS[w.color]||WS_COLORS.app;
+    const pct=w.progress?Math.round(w.progress.completed/w.progress.total*100):0;
+    const uid="ws"+wsIdx; wsIdx++;
+
+    html+='<div class="ws" id="'+uid+'">';
+    html+='<div class="ws-color-bar" style="background:'+c.fill+'"></div>';
+    html+='<div class="ws-bar" onclick="document.getElementById(\''+uid+'\').classList.toggle(\'open\')">';
+    html+='<div class="ws-bar-left"><div class="ws-name">'+esc(w.name)+'</div><div class="ws-oneliner">'+esc(w.oneliner||"")+'</div></div>';
+    html+='<span class="badge '+bc(w.status)+'">'+bl(w.status)+'</span>';
+    html+='<svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5L10 12.5L15 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    html+='</div>';
+
+    html+='<div class="ws-expand"><div class="ws-expand-inner">';
+    html+='<div class="ws-summary">'+esc(w.summary||"")+'</div>';
+
+    if(w.progress){
+      html+='<div class="prog"><div class="prog-track"><div class="prog-fill" style="width:'+pct+'%;background:'+c.fill+'"></div></div><span class="prog-label">'+w.progress.completed+'/'+w.progress.total+' complete ('+pct+'%)</span></div>';
+    }
+
+    if(w.milestones&&w.milestones.length){
+      html+='<div class="ms-row">';
+      for(const m of w.milestones){
+        const mc={"done":"ms-done","soon":"ms-soon","future":"ms-future","canceled":"ms-cancel"}[m.status]||"ms-future";
+        const mdate=m.status==="done"?"":" \u2013 "+esc(m.date);
+        html+='<span class="ms '+mc+'">'+esc(m.label)+mdate+'</span>';
+      }
+      html+='</div>';
+    }
+
+    html+='<div class="detail-two-col">';
+    html+='<div><div class="col-title">Activities in progress</div>';
+    html+=grouped(w.inProgress,"");
+    html+='</div>';
+    html+='<div>';
+    if(w.upcoming&&w.upcoming.length){
+      html+='<div class="col-title">Upcoming activities</div><div class="tl">';
+      for(const u of w.upcoming) html+='<div class="tl-item"><span class="td">'+esc(u.date)+':</span> '+esc(u.text)+'</div>';
+      html+='</div>';
+    }
+    html+='</div></div>';
+
+    if(w.deliverables){
+      html+='<div class="deliverables-panel"><div class="del-header">Deliverables</div><div class="del-two-col">';
+      html+='<div>';
+      if(w.deliverables.completed){
+        html+='<span class="del-badge completed">Completed</span>';
+        html+=grouped(w.deliverables.completed,"ck");
+      }
+      if(w.deliverables.removed){
+        html+='<div style="margin-top:14px"><span class="del-badge removed">Removed from scope</span></div>';
+        html+=grouped(w.deliverables.removed,"cancel");
+      }
+      html+='</div><div>';
+      if(w.deliverables.upcoming){
+        html+='<span class="del-badge upcoming">Upcoming</span>';
+        html+=grouped(w.deliverables.upcoming,"up");
+      }
+      html+='</div></div></div>';
+    }
+
+    if(w.completed){
+      const cid="comp"+uid;
+      html+='<div class="completed-section">';
+      html+='<div class="completed-toggle" id="ct'+cid+'" onclick="document.getElementById(\'ct'+cid+'\').classList.toggle(\'open\');document.getElementById(\'cb'+cid+'\').classList.toggle(\'open\')">';
+      html+='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7.5L10 12.5L15 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      html+='Completed activities to date</div>';
+      html+='<div class="completed-body" id="cb'+cid+'">';
+      html+=grouped(w.completed,"ck");
+      html+='</div></div>';
+    }
+
+    html+='</div></div></div>';
+  }
+  html+='</div>';
+
+  main.innerHTML=html;
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  var s=document.getElementById("wk");
+  var keys=Object.keys(WEEKS);
+  keys.forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=k;s.appendChild(o);});
+  s.value=keys[keys.length-1];
+  s.addEventListener("change",function(){render(s.value);});
+  render(s.value);
+});
+</script>
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <svg width="108" height="22" viewBox="0 0 216 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 21.1625C0 8.57728 8.45711 0 22.062 0C33.2285 0 40.2922 5.65365 41.9759 14.5601L34.022 15.7411C32.8415 9.75835 28.6032 6.19578 21.7717 6.19578C13.1405 6.19578 8.01201 12.0624 8.01201 21.1044C8.01201 30.1463 13.1985 36.071 21.9459 36.071C28.429 36.071 32.7834 32.7408 34.2542 26.9904L41.9759 28.5199C39.6149 36.923 32.7834 42.3443 21.7717 42.3443C7.77978 42.3443 0 33.5927 0 21.1818V21.1625Z" fill="#27272A"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M46.543 33.5928C46.543 30.9403 47.6654 28.6749 49.8716 27.2615C51.9036 25.9643 54.6711 25.1124 60.0317 24.609L70.4048 23.757V23.1375C70.4048 19.0134 67.8115 17.0385 63.0121 17.0385C58.2126 17.0385 55.3871 18.8972 54.942 22.2275H47.4332C48.1105 16.0704 54.0324 12.1206 62.954 12.1206C72.94 12.1206 77.6233 15.9542 77.6233 24.0862V32.102C77.6233 36.3422 77.8555 38.9367 78.3587 41.1827H71.1402C70.8499 39.7112 70.7531 37.8524 70.6951 36.0518C68.7211 39.8273 64.328 42.0346 57.9997 42.0346C50.9941 42.0346 46.543 38.8205 46.543 33.5735V33.5928ZM60.4188 37.2135C66.3988 37.2135 70.5209 34.1737 70.5209 29.372V27.8424L60.8059 28.7524C55.7742 29.3139 53.9744 30.6111 53.9744 33.2056C53.9744 35.8001 56.3354 37.2135 60.3994 37.2135H60.4188Z" fill="#27272A"/>
+<path d="M83.6807 27.1063C83.6807 17.8514 90.1638 12.1396 100.498 12.1396C109.187 12.1396 114.664 15.8184 116.077 22.5757L108.742 23.6406C107.891 19.6908 104.969 17.5997 100.343 17.5997C94.5956 17.5997 91.1508 21.0461 91.1508 26.9708C91.1508 32.8955 94.6536 36.5162 100.401 36.5162C104.969 36.5162 107.852 34.4832 108.917 30.4753L116.019 31.7725C114.606 38.1425 108.742 42.0536 100.382 42.0536C90.2799 42.0536 83.6807 36.187 83.6807 27.087V27.1063Z" fill="#27272A"/>
+<path d="M117.993 12.9917H124.534V5.94401L131.753 3.11719V12.9917H141.41V18.0645H131.753V30.4754C131.753 34.1542 133.553 35.7805 137.172 35.7805C138.855 35.7805 140.21 35.5482 141.41 35.2771V41.0276C139.823 41.531 137.791 41.8214 135.488 41.8214C127.244 41.8214 124.534 37.7555 124.534 31.6565V18.0451H117.993V12.9723V12.9917Z" fill="#27272A"/>
+<path d="M147.332 29.7009V12.9917H154.55V28.578C154.55 34.3865 157.763 36.4776 161.769 36.4776C167.865 36.4776 170.845 32.1212 170.845 27.2226V12.9917H178.006V41.2212H171.058V35.1803C169.258 39.4786 164.788 42.0731 159.427 42.0731C151.183 42.0731 147.293 37.678 147.293 29.7009H147.332Z" fill="#27272A"/>
+<path d="M184.914 34.5028L189.83 31.7341C191.862 35.1224 195.693 36.9812 201.519 36.9812C206.086 36.9812 208.35 35.6258 208.35 33.3024C208.35 31.3275 207.17 30.5918 203.899 30.1464L195.539 29.1784C189.443 28.3845 186.288 25.732 186.288 20.9883C186.288 15.567 191.3 12.1206 200.048 12.1206C207.324 12.1206 212.627 14.444 214.891 18.4519L210.266 21.3949C208.176 18.6262 204.905 17.0966 199.545 17.0966C195.152 17.0966 192.945 18.2777 192.945 20.6011C192.945 22.4598 194.358 23.3698 197.242 23.699L205.989 24.7058C212.356 25.5577 215.027 28.2103 215.027 32.7796C215.027 38.3752 210.401 42.0346 201.151 42.0346C193.081 42.0346 187.604 39.382 184.953 34.4641L184.914 34.5028Z" fill="#27272A"/>
+</svg>
+    <div class="top-bar-divider"></div>
+    <span class="top-bar-title">Mayo Clinic Executive Health</span>
+  </div>
+  <select id="wk" class="sel"></select>
+</div>
+
+<div class="page">
+  <div class="hero" id="hero"></div>
+  <div id="main"></div>
+</div>
+
+<div class="foot">Cactus &middot; Executive Health digital experience &middot; 2026</div>
+
+</body>
+</html>
