@@ -104,7 +104,8 @@ body{
 .changes{ background:#F0F9FF; border:1px solid #BAE6FD; border-radius:10px; padding:16px 20px; margin-bottom:12px; }
 .decisions{ background:#EEF2FF; border:1px solid #C7D2FE; border-radius:10px; padding:16px 20px; margin-bottom:12px; }
 .decisions-list{ list-style:none; padding:0; margin:8px 0 0; }
-.decisions-list li{ padding:4px 0; font-size:13px; }
+.decisions-list li{ padding:3px 0 3px 18px; font-size:13px; position:relative; }
+.decisions-list li::before{ content:""; position:absolute; left:0; top:10px; width:5px; height:5px; border-radius:50%; background:#A5B4FC; }
 .decisions-list .due{ display:inline-block; font-size:10px; font-weight:700; background:#E0E7FF; color:#4338CA; padding:1px 6px; border-radius:3px; margin-left:6px; }
 .last-updated{ font-size:11px; color:#9CA3AF; font-weight:400; margin-left:12px; }
 
@@ -762,8 +763,8 @@ function render(wk){
   let html="";
 
   if(d.changedThisWeek && d.changedThisWeek.length){
-    html+='<div class="changes"><div style="font-weight:700;font-size:13px;margin-bottom:6px">&#9679; What changed this week</div><ul style="margin:0;padding-left:18px">';
-    d.changedThisWeek.forEach(function(c){ html+='<li style="font-size:13px;padding:2px 0">'+esc(c)+'</li>'; });
+    html+='<div class="changes"><div style="font-weight:700;font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">What Changed This Week</div><ul style="list-style:none;margin:0;padding:0">';
+    d.changedThisWeek.forEach(function(c){ html+='<li style="font-size:13px;padding:3px 0 3px 18px;position:relative"><span style="position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:#7DD3FC"></span>'+esc(c)+'</li>'; });
     html+='</ul></div>';
   }
 
@@ -774,7 +775,7 @@ function render(wk){
   }
 
   if(d.decisionsNeeded && d.decisionsNeeded.length){
-    html+='<div class="decisions"><div style="font-weight:700;font-size:13px;margin-bottom:6px">&#9679; Decisions needed</div><ul class="decisions-list">';
+    html+='<div class="decisions"><div style="font-weight:700;font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em">Decisions Needed</div><ul class="decisions-list">';
     d.decisionsNeeded.forEach(function(dn){
       html+='<li>'+esc(dn.text);
       if(dn.dueDate) html+=' <span class="due">due '+esc(dn.dueDate)+'</span>';
