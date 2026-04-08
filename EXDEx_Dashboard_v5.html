@@ -72,7 +72,11 @@ body{
 .urgent-list{ list-style:none; }
 .urgent-list li{
   font-size:13px; color:#7F1D1D; line-height:1.5;
-  padding:3px 0;
+  padding:3px 0 3px 18px; position:relative;
+}
+.urgent-list li::before{
+  content:""; position:absolute; left:0; top:10px;
+  width:5px; height:5px; border-radius:50%; background:#FCA5A5;
 }
 
 /* Attention */
@@ -89,7 +93,11 @@ body{
 .attention-list{ list-style:none; }
 .attention-list li{
   font-size:13px; color:#78350F; line-height:1.5;
-  padding:3px 0;
+  padding:3px 0 3px 18px; position:relative;
+}
+.attention-list li::before{
+  content:""; position:absolute; left:0; top:10px;
+  width:5px; height:5px; border-radius:50%; background:#FBBF24;
 }
 
 /* Changes & decisions */
@@ -761,7 +769,7 @@ function render(wk){
   }
 
   if(d.urgentItems && d.urgentItems.length){
-    html+='<div class="urgent"><div class="urgent-header"><span class="urgent-dot"></span>Urgent</div><ul class="urgent-list">';
+    html+='<div class="urgent"><div class="urgent-header">Urgent</div><ul class="urgent-list">';
     for(const a of d.urgentItems) html+='<li>'+esc(a)+'</li>';
     html+='</ul></div>';
   }
@@ -777,7 +785,7 @@ function render(wk){
   }
 
   if(d.attentionItems && d.attentionItems.length){
-    html+='<div class="attention"><div class="attention-header"><span class="attention-dot"></span>Needs attention</div><ul class="attention-list">';
+    html+='<div class="attention"><div class="attention-header">Needs attention</div><ul class="attention-list">';
     for(const a of d.attentionItems) html+='<li>'+esc(a)+'</li>';
     html+='</ul></div>';
   }
