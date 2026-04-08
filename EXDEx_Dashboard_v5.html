@@ -696,11 +696,10 @@ function renderGantt(g){
     h+='<div class="gantt-bar-active" style="left:'+lane.activeStart+'%;right:'+(100-lane.activeEnd)+'%;background:'+lane.color+'"></div>';
     if(lane.milestones) {
       for(const ms of lane.milestones) {
+        if(!ms.label) continue;
         h+='<div class="gantt-milestone" style="left:'+ms.pos+'%"></div>';
-        if(ms.label) {
-          const lbl = ms.label.replace(/\\n/g,"<br>");
-          h+='<div class="gantt-ms-label" style="left:'+ms.pos+'%">'+lbl+'</div>';
-        }
+        const lbl = ms.label.replace(/\\n/g,"<br>");
+        h+='<div class="gantt-ms-label" style="left:'+ms.pos+'%">'+lbl+'</div>';
       }
     }
     h+='</div>';
