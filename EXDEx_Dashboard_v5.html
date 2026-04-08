@@ -304,7 +304,8 @@ const WEEKS = {
       title: "Road to Gonda-19 launch: 15 weeks",
       startMonth: "2025-12",
       months: ["01/26","02/26","03/26","04/26","05/26","06/26","07/26"],
-      todayPosition: 38,
+      todayPosition: 41,
+      todayLabel: "Mar 27",
       launchPosition: 96,
       launchLabel: "Gonda 19 \u2013 July 6",
       lanes: [
@@ -682,7 +683,7 @@ function renderGantt(g){
   h+='</div>';
 
   h+='<div class="gantt-body">';
-  h+='<div class="gantt-today" style="left:'+g.todayPosition+'%"><span class="gantt-today-label">Today</span></div>';
+  h+='<div class="gantt-today" style="left:'+g.todayPosition+'%"><span class="gantt-today-label">'+(g.todayLabel?esc(g.todayLabel):'Today')+'</span></div>';
   if(g.launchPosition) {
     h+='<div class="gantt-launch" style="left:'+g.launchPosition+'%"><span class="gantt-launch-label">'+esc(g.launchLabel||"")+'</span></div>';
   }
