@@ -139,7 +139,7 @@ body{
   border-left:2px solid #27272A; z-index:2;
 }
 .gantt-launch-label{
-  position:absolute; top:-20px; right:-4px;
+  position:absolute; top:-32px; right:-4px;
   font-size:9px; font-weight:700; color:#27272A;
   white-space:nowrap; text-align:right;
 }
@@ -774,7 +774,6 @@ function render(wk){
   let wsIdx=0;
   for(const w of ws){
     const c=WS_COLORS[w.color]||WS_COLORS.app;
-    const pct=w.progress?Math.round(w.progress.completed/w.progress.total*100):0;
     const uid="ws"+wsIdx; wsIdx++;
 
     html+='<div class="ws" id="'+uid+'">';
@@ -787,20 +786,6 @@ function render(wk){
 
     html+='<div class="ws-expand"><div class="ws-expand-inner">';
     html+='<div class="ws-summary">'+esc(w.summary||"")+'</div>';
-
-    if(w.progress){
-      html+='<div class="prog"><div class="prog-track"><div class="prog-fill" style="width:'+pct+'%;background:'+c.fill+'"></div></div><span class="prog-label">'+w.progress.completed+'/'+w.progress.total+' complete ('+pct+'%)</span></div>';
-    }
-
-    if(w.milestones&&w.milestones.length){
-      html+='<div class="ms-row">';
-      for(const m of w.milestones){
-        const mc={"done":"ms-done","soon":"ms-soon","future":"ms-future","canceled":"ms-cancel"}[m.status]||"ms-future";
-        const mdate=m.status==="done"?"":" \u2013 "+esc(m.date);
-        html+='<span class="ms '+mc+'">'+esc(m.label)+mdate+'</span>';
-      }
-      html+='</div>';
-    }
 
     html+='<div class="detail-two-col">';
     html+='<div><div class="col-title">Activities in progress</div>';
