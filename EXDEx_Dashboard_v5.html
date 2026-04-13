@@ -660,6 +660,330 @@ const WEEKS = {
         }
       }
     ]
+  },
+
+  "Week 5 \u2013 Apr 10, 2026": {
+    lastUpdated: "Apr 10, 2026",
+    changedThisWeek: [
+      "Sightline InBody: Cactus engineering met with InBody Mayo project team; testing shifted from prod to test data; April 1 deadline missed but overall project delivery not impacted by this delay",
+      "Next steps: meet with InBody team week of April 13; Cactus to assess impacts and provide update",
+      "Physician testing originally planned for April, moved to May due to construction timeline",
+      "Scheduling training workshops moved to completed (Ops & Training)",
+      "Authentication flows (badge tap development) and physician testing scheduling completed (On-Floor Products)",
+      "Gantt updated to 13 weeks to launch (was 15 weeks)"
+    ],
+    decisionsNeeded: [
+      { text: "Assess InBody integration impact on project delivery after April 13 meeting", dueDate: "Apr 17" }
+    ],
+    urgentItems: [
+      "Sightline: InBody fields in Epic were requested in Prod by April 1. Cactus engineering has met with the InBody Mayo project team and they requested testing prior to prod, missing the April 1 deadline. Good news: the shift from prod data to testing data for the onsite physician testing in May means overall project delivery is not impacted. Next steps: meet with InBody team week of April 13. Cactus will assess impacts and provide update."
+    ],
+    attentionItems: [
+      "Physician testing moved from April to May due to construction timeline",
+      "InBody fields still pending \u2013 meeting with InBody team week of April 13 to test connections"
+    ],
+
+    gantt: {
+      title: "Road to Gonda-19 launch: 13 weeks",
+      startMonth: "2025-12",
+      months: ["01/26","02/26","03/26","04/26","05/26","06/26","07/26"],
+      todayPosition: 59,
+      todayLabel: "Apr 10",
+      launchPosition: 96,
+      launchLabel: "Gonda 19 \u2013 July 6",
+      lanes: [
+        {
+          label: "Website",
+          color: "#3B82F6",
+          status: "on-track",
+          barStart: 0, barEnd: 100,
+          activeStart: 18, activeEnd: 60,
+          milestones: [
+            { pos: 32, label: "Gonda-19\\nContent Refresh" },
+            { pos: 60, label: "M365 Concierge\\nRST Page" }
+          ]
+        },
+        {
+          label: "App",
+          color: "#059669",
+          status: "on-track",
+          barStart: 0, barEnd: 100,
+          activeStart: 0, activeEnd: 100,
+          milestones: [
+            { pos: 52, label: "Beta Release\\nCore Team & Trusted Patients" },
+            { pos: 88, label: "Public Release\\nPhased Patient Rollout" }
+          ]
+        },
+        {
+          label: "Sightline",
+          color: "#F59E0B",
+          status: "on-track",
+          barStart: 0, barEnd: 78,
+          activeStart: 0, activeEnd: 78,
+          milestones: [
+            { pos: 52, label: "*Physician Testing\\n& Feedback" },
+            { pos: 65, label: "Physician & Staff Training" }
+          ]
+        },
+        {
+          label: "Mindfulness Room, Healthcare Horizon",
+          color: "#EF4444",
+          status: "on-track",
+          barStart: 0, barEnd: 82,
+          activeStart: 0, activeEnd: 82,
+          milestones: [
+            { pos: 55, label: "On-Site Install & Testing" }
+          ]
+        },
+        {
+          label: "Operational Support",
+          color: "#EC4899",
+          status: "on-track",
+          barStart: 0, barEnd: 100,
+          activeStart: 0, activeEnd: 100,
+          milestones: [
+            { pos: 58, label: "ExDEx\\nRoadshow" },
+            { pos: 75, label: "Hospitality &\\nApp Training" },
+            { pos: 88, label: "Pre-Launch\\nPrep" }
+          ]
+        }
+      ]
+    },
+
+    workstreams: [
+      {
+        name: "Ops & training",
+        color: "ops",
+        status: "on-track",
+        oneliner: "Training workshops scheduling completed. Hospitality audit and guidelines in progress.",
+        summary: "Scheduling training workshops has moved to completed. Hospitality audit, guidelines, training toolkit, launch workshops, and digital rollout & adoption metrics framework remain in progress.",
+        inProgress: {
+          "Ops & Training": [
+            "Hospitality audit",
+            "Hospitality guidelines",
+            "Training toolkit",
+            "Launch workshops",
+            "Digital rollout & adoption metrics framework"
+          ]
+        },
+        upcoming: [
+          { date: "Apr", text: "Health Insights Report ops change management" },
+          { date: "May", text: "Patient-facing app instructional materials" },
+          { date: "Jun", text: "FAQ guide app & Sightline" }
+        ],
+        completed: {
+          "Ops & Training": [
+            "Pre-visit questionnaire revised",
+            "Health Insights report workflow",
+            "Scheduling training workshops"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Ops & Training": [
+              "Pre-visit questionnaire revised",
+              "Health Insights report workflow"
+            ]
+          },
+          upcoming: {
+            "Ops & Training": [
+              "Health Insights Report ops change management",
+              "Digital rollout & adoption metrics framework",
+              "Patient-facing app instructional materials",
+              "Launch workshops",
+              "FAQ guide app & Sightline"
+            ]
+          }
+        }
+      },
+      {
+        name: "App / website",
+        color: "app",
+        status: "on-track",
+        oneliner: "Integration POCs target Mar 31. Custom forms changes in progress. App store submission planning continues.",
+        summary: "Website custom forms changes are in progress along with M365 Concierge RST page scoping. App development continues with asynchronous testing, QA for iOS and Android, app store submission planning, KPI/metrics definition, and rollout planning across all sites.",
+        inProgress: {
+          "Website": [
+            "Custom forms changes in progress",
+            "M365 Concierge RST page scoping and timeline"
+          ],
+          "App": [
+            "Testing patients asynchronous testing",
+            "QA for iOS and Android (ongoing)",
+            "App store submission planning",
+            "KPIs and metrics definition & implementation plan",
+            "Rollout planning all sites: stage criteria shared defining"
+          ]
+        },
+        upcoming: [
+          { date: "Mar 31", text: "Building integration POCs" },
+          { date: "Apr", text: "App alpha release and QA test report" },
+          { date: "May", text: "Beta release deliverables in progress" },
+          { date: "Jun", text: "Beta release, external tester deployment" },
+          { date: "Jul", text: "Public app release and launch report" }
+        ],
+        completed: {
+          "Website": [
+            "Alignment on key priorities for Feb to July",
+            "Website API connection to MS Dynamics, Analytics"
+          ],
+          "App": [
+            "Testing patients criteria and scenarios shared",
+            "Mitigation of app risks",
+            "Release plan shared"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Website": [
+              "Content map & information architecture: 1 Figma guide",
+              "UX design: 5 wireframes in Figma",
+              "UI design: 5 designed core pages in Figma",
+              "Design system: 1 Figma guide",
+              "Website copy: created for each page",
+              "User testing & feedback sessions",
+              "Marketing website AEM delivery"
+            ],
+            "App": [
+              "Information architecture guide: 1 Figma outline",
+              "UX design: wireframes created in Figma",
+              "UI design: screens designed in Figma",
+              "Clickable prototype: 1 prototype built in Figma",
+              "Feature roadmap progress",
+              "QA: complete non-integration testing",
+              "Feature roadmap progress on integration and non-integration features"
+            ]
+          },
+          upcoming: {
+            "Website": [
+              "Marketing website with custom forms delivery",
+              "M365 page"
+            ],
+            "App": [
+              "April: complete alpha release",
+              "April: deliver QA test report, issue tracker, feedback summary",
+              "May: in-progress deliverables for Beta release",
+              "June: complete Beta release",
+              "July: complete published public app release",
+              "July: launch report and retrospective"
+            ]
+          }
+        }
+      },
+      {
+        name: "On-floor products: Exam Room, Vitals, Epic Check-In",
+        color: "products",
+        status: "on-track",
+        oneliner: "Auth flows and physician testing completed. InBody Epic integration meeting scheduled week of Apr 13.",
+        summary: "Authentication flows (badge tap development) and physician testing scheduling are now completed. InBody fields in Epic remain in progress with an engineering team meeting with InBody Mayo project team to test connections. Vitals animated videos continue in production. Epic Check-In look-and-feel changes being implemented.",
+        inProgress: {
+          "Exam Room": [
+            "Authentication flows (badge tap development)",
+            "Physician testing onsite",
+            "Analytics investigation",
+            "New InBody fields in Epic (engineering team meeting with InBody Mayo project team to test connections)"
+          ],
+          "Vitals Content": [
+            "Vitals animated videos"
+          ],
+          "Epic Check-In": [
+            "Implement look-and-feel changes"
+          ]
+        },
+        upcoming: [
+          { date: "Apr 13", text: "Meet with InBody team to test connections and assess delivery impact" },
+          { date: "May", text: "Physician testing onsite (moved from April due to construction timeline)" },
+          { date: "May", text: "[Vitals Content] Deliverable: design language & animation style guide" }
+        ],
+        completed: {
+          "On-Floor Products": [
+            "Authentication flows (badge tap development)",
+            "Physician testing scheduled",
+            "Product adoption strategy",
+            "Stylus and stylus tether confirmed"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Vitals Educational Content": [
+              "Storyboards \u2013 round 2"
+            ],
+            "Exam Room Experience": [
+              "UX design: wireframes & IA created in Figma",
+              "UI design: screens designed in Figma",
+              "Functional prototype: 1 prototype & presentation"
+            ],
+            "Epic Check-In": [
+              "Product maps & IA created in Figma",
+              "Design customization guidance in Figma"
+            ]
+          },
+          upcoming: {
+            "Vitals Educational Content": [
+              "Design language & animation style guide",
+              "Final asset production"
+            ],
+            "Exam Room Experience": [
+              "Design system: 1 Figma guide",
+              "Frontend and backend interfaces for patient and provider"
+            ]
+          },
+          removed: {
+            "Vitals Room Experience": [
+              "Design system: 1 Figma guide \u2013 removed due to pivot",
+              "Functional prototype \u2013 removed due to pivot",
+              "Content serving platform \u2013 removed due to pivot",
+              "Vitals room ambient music \u2013 removed due to pivot",
+              "Technical infrastructure diagrams \u2013 removed due to pivot",
+              "UX wireframes & UI designs \u2013 removed due to pivot",
+              "Scripts \u2013 round 2"
+            ]
+          }
+        }
+      },
+      {
+        name: "On-floor experiences: Mindfulness Room",
+        color: "experiences",
+        status: "on-track",
+        oneliner: "QSYS programming, support planning, and install planning in progress. Install targeted May 2026.",
+        summary: "Mindfulness Room is in active development with QSYS programming, support planning, and install planning. Onsite installation targeted for May 2026, burn-in period in June 2026.",
+        inProgress: {
+          "Mindfulness Room": [
+            "QSYS programming",
+            "Support planning",
+            "Install planning"
+          ]
+        },
+        upcoming: [
+          { date: "May", text: "Onsite installation" },
+          { date: "Jun", text: "Burn-in period" }
+        ],
+        completed: {
+          "Mindfulness Room": [
+            "Crestron/QSYS programming guide v2"
+          ]
+        },
+        deliverables: {
+          completed: {
+            "Mindfulness Room": [
+              "Final media files",
+              "Test build documentation",
+              "Crestron/QSYS programming guide v2"
+            ],
+            "Cloud Chandelier \u2013 canceled": [
+              "All deliverables canceled with SOW close-out"
+            ]
+          },
+          upcoming: {
+            "Mindfulness Room": [
+              "Operations and maintenance guides",
+              "May 2026: onsite install",
+              "June 2026: post-launch support"
+            ]
+          }
+        }
+      }
+    ]
   }
 
 };
